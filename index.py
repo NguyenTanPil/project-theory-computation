@@ -27,7 +27,6 @@ def checkString(sent):
 inputString = input('Input string: ')
 parser = nltk.ChartParser(grammar)
 sent = list(map(str, inputString))
-print(sent)
 if checkString(sent):
 	lst = []
 	for i in parser.parse(sent):
@@ -38,9 +37,11 @@ if checkString(sent):
 		print('String ' + inputString + ' was born from grammar')
 		if len(lst) > 1: 
 			print('The grammar is ambiguity grammar')
+			# print(lst[0])
 			draw_trees(lst[0], lst[1])
 		else:
 			print('The grammar is not ambiguity grammar')
+			# print(lst[0])
 			draw_trees(lst[0])
 	else:
 		print('String ' + inputString + ' was\'t born from grammar')
