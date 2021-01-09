@@ -1,5 +1,7 @@
 import nltk, re, pprint
 from nltk import CFG, data
+from nltk.tree import Tree
+from nltk.draw.tree import draw_trees
 # Load a grammar from to file
 grammar = nltk.data.load('file:grammar.cfg')
 # grammar = nltk.CFG.fromstring(grammarInput)
@@ -27,19 +29,18 @@ parser = nltk.ChartParser(grammar)
 sent = list(map(str, inputString))
 print(sent)
 if checkString(sent):
-	status = False
-	tree = nltk.Tree.fromstring('()')
+	lst = []
 	for i in parser.parse(sent):
- 	 # print(i.productions())
-		tree = str(i)
-		status = True
-		if status:
-			break
+		lst.append(i)
 
 # main	
-	if(status):
+	if len(lst) > 0:
 		print('String ' + inputString + ' was born from grammar')
-		drawTree = nltk.Tree.fromstring(tree)
-		drawTree.draw()
+		if len(lst) > 1: 
+			print('The grammar is ambiguity grammar')
+			draw_trees(lst[0], lst[1])
+		else:
+			print('The grammar is not ambiguity grammar')
+			draw_trees(lst[0])
 	else:
 		print('String ' + inputString + ' was\'t born from grammar')
